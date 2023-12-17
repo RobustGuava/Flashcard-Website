@@ -1,14 +1,14 @@
 const express = require("express");
 const app = express();
+const fs = require("fs");
 app.use(express.static("client"));
 
-const facts = [
-    { text: "Played for St Kilda", tags: ["geography", "history"] },
-    { text: "Was born in 1929", tags: ["history"] },
-    { text: "Is not famous for cookery", tags: ["friday"] }
-];
+
 
 app.get("/fact", function (request, response) {
+    const rawFacts = fs.readFileSync("facts.json");
+    const facts = JSON.parse(rawFacts);
+
     const factNumber = parseInt(request.query.n);
     response.send(facts[factNumber].text);
 });
@@ -16,6 +16,10 @@ app.get("/fact", function (request, response) {
 app.get("/facts/", function (request, response) {
     const tag = request.query.tag;
     const results = [];
+
+    const rawFacts = fs.readFileSync("facts.json");
+    const facts = JSON.parse(rawFacts);
+
     for (const fact of facts) {
         if (fact.tags.includes(tag)) {
             results.push(fact.text);
@@ -26,6 +30,10 @@ app.get("/facts/", function (request, response) {
 
 app.get("/tags", function (request, response) {
     let tags = [];
+
+    const rawFacts = fs.readFileSync("facts.json");
+    const facts = JSON.parse(rawFacts);
+    
     for (const fact of facts) {
         tags = tags.concat(fact.tags);
     }
