@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignment</title>
 </head>
+
 <body>
     <p>Hello World!</p>
+    <form id="facts-form" action="http://localhost:8080/facts">
+        <input id="facts-tag" name="tag"></input>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="facts-container"></div>
+
+    <script src="facts-search.js"></script>
 </body>
+
 </html>
