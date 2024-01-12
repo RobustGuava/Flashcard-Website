@@ -8,14 +8,29 @@
 </head>
 
 <body>
-    <p>Search for facts by their tag!</p>
+    <p>Search for facts!</p>
     <form id="facts-form" action="http://localhost:8080/facts">
-        <input id="facts-tag" name="tag"></input>
+        <label for="facts-tag">Tag</label>
+        <input type="text" id="facts-tag" name="tag">
+
         <button type="submit">Submit</button>
     </form>
     <div id="facts-container"></div>
 
+    <p>Submit a new fact!</p>
+    <form id="new-fact-form" action="https://127.0.0.1:8080/submit">
+        <label for="fact-tag">Tag</label>
+        <input type="text" id="fact-tag" name="tag">
+    
+        <label for="fact-text">Text</label>
+        <input type="text" id="fact-text" name="text">
+    
+        <button type="submit">Submit</button>
+    </form>
+    
+
     <script src="facts-search.js"></script>
+    <script src="fact-submit.js"></script>
 </body>
 
 </html>
