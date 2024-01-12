@@ -1,23 +1,21 @@
 const form = document.getElementById("new-fact-form");
 
-async function submitFact(tag, text){
-    let response = await fetch(`http://127.0.0.1:8080/submit?tag=${tag}?text=${text}`);
-    if(response.ok){
-      let response = await response.json();
-      document.getElementById('facts-container').innerHTML = response;
-    } else{
-        alert(response);
-    }
-  }
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const formData = new FormData(form);
+  const dataJson  = JSON.stringify(Object.fromEntries(formData.entries()));
+// send a fetch request (POST) with the data
 
-form.addEventListener('submit', async function(event){
-    event.preventDefault();
-    try{
-      let tag = document.getElementById("fact-tag").value;
-      let text = document.getElementById("fact-text").value;
-      tag = tag.toLowerCase();
-      submitFact(tag, text);
-    } catch(e) {
-      alert(e);
-    }
-  });
+const response = await fetch("http://127.0.0.1:8080/fact/new2", {
+  method: "POST",
+  // need to set headers to make sure the server knows to invoke the JSON parser
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: dataJson
+});
+setupTagButtons();
+// deal with the response?
+// TODO
+
+});

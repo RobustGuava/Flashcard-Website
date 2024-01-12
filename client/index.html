@@ -18,16 +18,19 @@
     <div id="facts-container"></div>
 
     <p>Submit a new fact!</p>
-    <form id="new-fact-form" action="https://127.0.0.1:8080/submit">
-        <label for="fact-tag">Tag</label>
-        <input type="text" id="fact-tag" name="tag">
-    
-        <label for="fact-text">Text</label>
-        <input type="text" id="fact-text" name="text">
-    
-        <button type="submit">Submit</button>
+    <form id="new-fact-form">
+        <div class="form-group">
+            <label for="new-fact-text">Factoid</label>
+            <input type="text" class="form-control" name="new-fact-text">
+        </div>
+
+        <div class="form-group">
+            <label for="new-fact-tag">Tag</label>
+            <input type="text" class="form-control" name="new-fact-tag">
+        </div>
+        <button type="submit" class="btn btn-primary">Add fact</button>
     </form>
-    
+
 
     <script src="facts-search.js"></script>
     <script src="fact-submit.js"></script>
