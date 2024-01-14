@@ -41,9 +41,20 @@ app.post('/fact/new2', function (request, response) {
   console.log(request.body);
   response.send(request.body);
 
+  // push data to facts file
   const newText = request.body['new-fact-text'];
   const newTag = request.body['new-fact-tag'];
-  const newFact = { text: newText, tags: [newTag] };
+
+  // convert string to lower case
+  const TagLowercase = newTag.toLowerCase();
+
+  // split string by commas
+  const TagsList = TagLowercase.split(',');
+
+  // remove spaces at start of text
+  const trimmedTagsList = TagsList.map(newTag => newTag.trim());
+
+  const newFact = { text: newText, tags: trimmedTagsList };
   facts.push(newFact);
   fs.writeFileSync(factsFile, JSON.stringify(facts));
 });

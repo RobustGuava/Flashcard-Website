@@ -8,27 +8,25 @@
 </head>
 
 <body>
-    <p>Search for facts!</p>
+    <h1>Facts!</h1>
+    <h3>Search for facts!</h3>
     <form id="facts-form" action="http://localhost:8080/facts">
         <label for="facts-tag">Tag</label>
         <input type="text" id="facts-tag" name="tag">
 
-        <button type="submit">Submit</button>
+        <button type="submit">Search</button>
     </form>
     <div id="facts-container"></div>
 
-    <p>Submit a new fact!</p>
+    <h3>Submit a new fact! (Seperate the tags with a comma)</h3>
     <form id="new-fact-form">
-        <div class="form-group">
-            <label for="new-fact-text">Factoid</label>
-            <input type="text" class="form-control" name="new-fact-text">
-        </div>
+        <label for="new-fact-tag">Tag</label>
+        <input type="text" name="new-fact-tag">
 
-        <div class="form-group">
-            <label for="new-fact-tag">Tag</label>
-            <input type="text" class="form-control" name="new-fact-tag">
-        </div>
-        <button type="submit" class="btn btn-primary">Add fact</button>
+        <label for="new-fact-text">Factoid</label>
+        <input type="text" name="new-fact-text">
+        
+        <button type="submit">Add fact</button>
     </form>
 
 
