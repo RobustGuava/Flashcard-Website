@@ -4,8 +4,6 @@ const fs = require('fs');
 
 const topicsFile = 'data/topics.json';
 const topics = JSON.parse(fs.readFileSync(topicsFile));
-const factsFile = 'data/facts.json'
-const facts = JSON.parse(fs.readFileSync(factsFile));
 
 app.use(express.static('client'));
 app.use(express.json());
@@ -51,10 +49,25 @@ app.post('/flashcard/new', function (request, response) {
         foundTopic.flashcards.push(newFlashcard);
 
         fs.writeFileSync(topicsFile, JSON.stringify(topics));
-        response.send(request.body);
     } else {
         response.status(404).send('Topic not found.');
     }
+});
+
+app.post('/topic/new', function (request, response) {
+    // get data out of request
+    console.log('Loaded post request');
+    console.log(request.body);
+    response.send(request.body);
+
+    const topicName = request.body['topic-name'];
+    const topicNameLowerCase = topicName.toLowerCase()
+
+    const newTopic = { topicName: topicNameLowerCase, flashcards: [] }
+    console.log(newTopic)
+
+    topics.push(newTopic)
+    fs.writeFileSync(topicsFile, JSON.stringify(topics));
 });
 
 app.listen(8080);

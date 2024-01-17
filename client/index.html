@@ -32,8 +32,24 @@
         <button type="submit">Submit flashcard</button>
     </form>
 
-    <script src="flashcard-submit.js"></script>
+    <h3>Search for topics!</h3>
+    <form id="topics-form">
+        <button type="submit">Search</button>
+    </form>
+    <div id="topics-container"></div>
+
+    <h3>Create a new topic!</h3>
+    <form id="new-topic-form">
+        <label for="topic-name">Topic Name</label>
+        <input type="text" id="topic-name" name="topic-name">
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script src="new-flashcard.js"></script>
     <script src="flashcards-search.js"></script>
+    <script src="new-topic.js"></script>
+    <script src="topics-search.js"></script>
 </body>
 
 </html>
