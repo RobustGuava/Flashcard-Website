@@ -2,61 +2,59 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 
-const factsFile = 'data/facts.json';
+const topicsFile = 'data/topics.json';
+const topics = JSON.parse(fs.readFileSync(topicsFile));
+const factsFile = 'data/facts.json'
+const facts = JSON.parse(fs.readFileSync(factsFile));
 
 app.use(express.static('client'));
 app.use(express.json());
 
-const facts = JSON.parse(fs.readFileSync(factsFile));
+// gets a list of all the topic names
+app.get('/topics', function (request, response) {
+    let topicList = [];
 
-app.get('/fact', function (request, response) {
-    const factNumber = parseInt(request.query.n);
-    response.send(facts[factNumber].text);
+    for (const topic of topics) {
+        topicList = topicList.concat(topic.topicName);
+    }
+    response.send(topicList);
 });
 
-app.get('/facts/', function (request, response) {
-    const tag = request.query.tag;
-    const results = [];
+// gets a list of flashcards for the topic
+// will break if duplicate topicName's
+app.get('/flashcards/', function (request, response) {
+    const topicName = request.query.topicName;
 
-    for (const fact of facts) {
-        if (fact.tags.includes(tag)) {
-            results.push(fact.text);
+    for (const topic of topics) {
+        if (topicName.toLowerCase() == topic.topicName.toLowerCase()) {
+            response.send(topic.flashcards);
         }
     }
-    response.send(results);
 });
 
-app.get('/tags', function (request, response) {
-    let tags = [];
-    for (const fact of facts) {
-        tags = tags.concat(fact.tags);
+// adds a new flashcard for the topic
+app.post('/flashcard/new', function (request, response) {
+    // get data out of request
+    console.log('Loaded post request');
+    console.log(request.body);
+    response.send(request.body);
+
+    const topicName = request.body['topic-name'];
+    const newQuestion = request.body['new-question'];
+    const newAnswer = request.body['new-answer'];
+
+    const newFlashcard = { question: newQuestion, answer: newAnswer };
+
+    const foundTopic = topics.find(topic => topic.topicName.toLowerCase() === topicName.toLowerCase());
+
+    if (foundTopic) {
+        foundTopic.flashcards.push(newFlashcard);
+
+        fs.writeFileSync(topicsFile, JSON.stringify(topics));
+        response.send(request.body);
+    } else {
+        response.status(404).send('Topic not found.');
     }
-    const tagSet = new Set(tags);
-    response.send([...tagSet]);
-});
-
-app.post('/fact/new2', function (request, response) {
-  // get data out of request
-  console.log('Loaded post request');
-  console.log(request.body);
-  response.send(request.body);
-
-  // push data to facts file
-  const newText = request.body['new-fact-text'];
-  const newTag = request.body['new-fact-tag'];
-
-  // convert string to lower case
-  const TagLowercase = newTag.toLowerCase();
-
-  // split string by commas
-  const TagsList = TagLowercase.split(',');
-
-  // remove spaces at start of text
-  const trimmedTagsList = TagsList.map(newTag => newTag.trim());
-
-  const newFact = { text: newText, tags: trimmedTagsList };
-  facts.push(newFact);
-  fs.writeFileSync(factsFile, JSON.stringify(facts));
 });
 
 app.listen(8080);

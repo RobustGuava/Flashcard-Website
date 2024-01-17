@@ -1,4 +1,4 @@
-const form = document.getElementById("new-fact-form");
+const form = document.getElementById("new-flashcard-form");
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -6,7 +6,7 @@ form.addEventListener("submit", async (event) => {
   const dataJson = JSON.stringify(Object.fromEntries(formData.entries()));
   // send a fetch request (POST) with the data
 
-  const response = await fetch("http://127.0.0.1:8080/fact/new2", {
+  const response = await fetch("http://127.0.0.1:8080/flashcard/new", {
     method: "POST",
     // need to set headers to make sure the server knows to invoke the JSON parser
     headers: {
