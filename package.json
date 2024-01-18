@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pretest": "eslint *.js"
+    "pretest": "eslint *.js client/*.js"
   },
   "repository": {
     "type": "git",
