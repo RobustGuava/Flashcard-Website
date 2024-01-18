@@ -37,20 +37,36 @@ app.post('/flashcard/new', function (request, response) {
     console.log(request.body);
     response.send(request.body);
 
-    const topicName = request.body['topic-name'];
-    const newQuestion = request.body['new-question'];
-    const newAnswer = request.body['new-answer'];
+    // check if topic-name is assigned a value
+    if (!request.body['topic-name']) {
+        return response.status(400).json({ error: 'Bad Request', message: 'Missing required JSON body parameter: topic-name' });
+    }
 
-    const newFlashcard = { question: newQuestion, answer: newAnswer };
+    //check if new-question is assigned a value
+    if (!request.body['new-question']) {
+        return response.status(400).json({ error: 'Bad Request', message: 'Missing required JSON body parameter: new-question' });
+    }
 
-    const foundTopic = topics.find(topic => topic.topicName.toLowerCase() === topicName.toLowerCase());
+    //check if new-answer is assigned a value
+    if (!request.body['new-answer']) {
+        return response.status(400).json({ error: 'Bad Request', message: 'Missing required JSON body parameter: new-answer' });
+    }
+
+    const topicName = request.body['topic-name'].toLowerCase();
+    const question = request.body['new-question'];
+    const answer = request.body['new-answer'];
+
+    const newFlashcard = { question, answer };
+
+    const foundTopic = topics.find(topic => topic.topicName === topicName);
 
     if (foundTopic) {
         foundTopic.flashcards.push(newFlashcard);
 
         fs.writeFileSync(topicsFile, JSON.stringify(topics));
+        response.status(200).json({ message: 'OK', data: newFlashcard });
     } else {
-        response.status(404).send('Topic not found.');
+        response.status(400).json({ error: 'Bad Request', message: 'That topic name doesnt exists' });
     }
 });
 
@@ -59,21 +75,24 @@ app.post('/topic/new', function (request, response) {
     console.log('Loaded post request');
     console.log(request.body);
 
-    if (!request.body['topic-name'].toLowerCase()) {
-        response.status(400).json({ error: 'Bad Request', message: 'Missing required JSON body parameter: topic-name' });
+    // check if topic-name is assigned a value
+    if (!request.body['topic-name']) {
+        return response.status(400).json({ error: 'Bad Request', message: 'Missing required JSON body parameter: topic-name' });
     }
 
     const topicName = request.body['topic-name'].toLowerCase();
 
+    // check if the topic name already exists
     if (topics.some(topic => topic.topicName === topicName)) {
-        response.status(400).json({ error: 'Bad Request', message: 'That topic name already exists' });
-    } else {
-        const newTopic = { topicName, flashcards: [] };
-
-        topics.push(newTopic);
-        fs.writeFileSync(topicsFile, JSON.stringify(topics));
-        response.status(200).json({ message: 'Topic added', data: newTopic });
+        return response.status(400).json({ error: 'Bad Request', message: 'That topic name already exists' });
     }
+
+    const newTopic = { topicName, flashcards: [] };
+
+    topics.push(newTopic);
+    fs.writeFileSync(topicsFile, JSON.stringify(topics));
+
+    response.status(200).json({ message: 'OK', data: newTopic });
 });
 
 app.listen(8080);
