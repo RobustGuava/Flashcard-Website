@@ -17,3 +17,25 @@ button {
 button:hover {
     background-color: #2980b9;
 }
+
+/* Style for the label tag */
+label {
+    margin: 4px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Style for the select tag */
+select {
+    width: 150px;
+    padding-block: 1px;
+    padding-inline: 2px;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Highlight the select when focused */
+select:focus {
+    border-color: #007bff; /* Change the color as desired */
+}
