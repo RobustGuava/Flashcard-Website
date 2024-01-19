@@ -10,9 +10,9 @@
 
 <body>
     <h3>Search for flashcards!</h3>
-    <form id="flashcards-form" action="http://127.0.0.1:8080/flashcards" method="get">
+    <form id="flashcards-form">
         <label for="topic-name">Select a Topic:</label>
-        <select id="topic-name" name="topicName"></select>
+        <select id="topic-name"></select>
         <button type="submit">Get Flashcards</button>
     </form>
 
@@ -42,7 +42,7 @@
     <h3>Create a new topic!</h3>
     <form id="new-topic-form">
         <label for="new-topic-name">Topic Name</label>
-        <input type="text" id="new-topic-name" name="new-topic-name">
+        <input type="text" id="new-topic-name">
 
         <button type="submit">Submit</button>
     </form>

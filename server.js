@@ -21,10 +21,10 @@ app.get('/topics', function (request, response) {
 // gets a list of flashcards for the topic
 // will break if duplicate topicName's
 app.get('/flashcards', function (request, response) {
-    const topicName = request.query.topicName;
+    const topicName = request.query.topicName.toLowerCase();
 
     for (const topic of topics) {
-        if (topicName.toLowerCase() === topic.topicName.toLowerCase()) {
+        if (topicName === topic.topicName) {
             return response.status(200).json(topic.flashcards);
         }
     }
@@ -36,7 +36,7 @@ app.post('/flashcard/new', function (request, response) {
     console.log('Loaded post request');
     console.log(request.body);
 
-    const topicName = request.body['new-topic-name'].toLowerCase();
+    const topicName = request.body['topic-name'].toLowerCase();
     const question = request.body['new-question'];
     const answer = request.body['new-answer'];
 
