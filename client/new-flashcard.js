@@ -4,6 +4,9 @@ newFlashcardForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const formData = new FormData(newFlashcardForm);
   const dataJson = JSON.stringify(Object.fromEntries(formData.entries()));
+
+  newFlashcardForm.reset();
+
   // send a fetch request (POST) with the data
 
   await fetch('http://127.0.0.1:8080/flashcard/new', {

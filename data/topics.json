@@ -13,14 +13,6 @@
             {
                 "question": "This is sample question 3 for topic 1.",
                 "answer": "This is sample answer 3 for topic 1."
-            },
-            {
-                "question": "test Q",
-                "answer": "test A"
-            },
-            {
-                "question": "test Q2",
-                "answer": "test A2"
             }
         ]
     },
@@ -38,10 +30,6 @@
             {
                 "question": "This is sample question 3 for topic 2.",
                 "answer": "This is sample answer 3 for topic 2."
-            },
-            {
-                "question": "test Q",
-                "answer": "test A"
             }
         ]
     }

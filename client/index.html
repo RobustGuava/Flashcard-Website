@@ -5,23 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignment</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <h3>Seach for flashcards!</h3>
-    <form id="flashcards-form" action="http://127.0.0.1:8080/flashcards">
-        <label for="topic-name">Topic Name</label>
-        <input type="text" id="topic-name" name="topicName">
-
-        <button type="submit">Search</button>
+    <h3>Search for flashcards!</h3>
+    <form id="flashcards-form" action="http://127.0.0.1:8080/flashcards" method="get">
+        <label for="topic-name">Select a Topic:</label>
+        <select id="topic-name" name="topicName">
+            <option value="topic 1">Topic 1</option>
+            <option value="topic 2">Topic 2</option>
+        </select>
+        <button type="submit">Get Flashcards</button>
     </form>
-    <div id="flashcards-container"></div>
 
+    <div id="flashcards-container"></div>
 
     <h3>Submit a new flashcard!</h3>
     <form id="new-flashcard-form">
         <label for="topic-name">Topic Name</label>
-        <input type="text" id="topic-name" name="topic-name">
+        <select id="topic-name" name="topic-name">
+            <option value="topic 1">Topic 1</option>
+            <option value="topic 2">Topic 2</option>
+        </select>
 
         <label for="new-question">Question</label>
         <input type="text" id="new-question" name="new-question">
@@ -29,7 +35,7 @@
         <label for="new-answer">Answer</label>
         <input type="text" id="new-answer" name="new-answer">
 
-        <button type="submit">Submit flashcard</button>
+        <button type="submit">Submit</button>
     </form>
 
     <h3>Search for topics!</h3>
