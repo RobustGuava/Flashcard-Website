@@ -8,12 +8,16 @@ const topics = JSON.parse(fs.readFileSync(topicsFile));
 app.use(express.static('client'));
 app.use(express.json());
 
-// gets a list of all the topic names
+// gets a list of the data for each topic
 app.get('/topics', function (request, response) {
     let data = [];
 
     for (const topic of topics) {
-        data = data.concat(topic.topicName);
+        topicName = topic.topicName
+        topicDesc = topic.topicDesc
+        numFlashcards = topic.flashcards.length
+
+        data = data.concat({ topicName, topicDesc, numFlashcards });
     }
     response.status(200).json(data);
 });
@@ -78,10 +82,16 @@ app.post('/topic/new', function (request, response) {
     console.log(request.body);
 
     const topicName = request.body['new-topic-name'].toLowerCase();
+    const topicDesc = request.body['new-topic-desc'];
 
-    // check if topic-name is assigned a value
+    // check if new-topic-name is assigned a value
     if (!topicName) {
         return response.status(400).json({ error: 'Please select a topic.' });
+    }
+
+    // check if new-topic-desc is assigned a value
+    if (!topicDesc) {
+        return response.status(400).json({ error: 'Please enter a description.' });
     }
 
     // check if the topic name already exists
@@ -89,7 +99,7 @@ app.post('/topic/new', function (request, response) {
         return response.status(400).json({ error: 'That topic name already exists.' });
     }
 
-    const newTopic = { topicName, flashcards: [] };
+    const newTopic = { topicName, topicDesc, flashcards: [] };
 
     topics.push(newTopic);
     fs.writeFileSync(topicsFile, JSON.stringify(topics));

@@ -1,6 +1,7 @@
 [
     {
         "topicName": "topic 1",
+        "topicDesc": "This is a sample description for topic 1",
         "flashcards": [
             {
                 "question": "This is sample question 1 for topic 1.",
@@ -18,6 +19,7 @@
     },
     {
         "topicName": "topic 2",
+        "topicDesc": "This is a sample description for topic 2",
         "flashcards": [
             {
                 "question": "This is sample question 1 for topic 2.",
@@ -31,6 +33,12 @@
                 "question": "This is sample question 3 for topic 2.",
                 "answer": "This is sample answer 3 for topic 2."
             }
+        ]
+    },
+    {
+        "topicName": "physics",
+        "topicDesc": "Flashcard set for AH physics",
+        "flashcards": [
         ]
     }
 ]
