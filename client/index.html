@@ -12,7 +12,9 @@
     <h3>Search for flashcards!</h3>
     <form id="flashcards-form">
         <label for="topic-name">Select a Topic:</label>
-        <select id="topic-name"></select>
+        <select id="topic-name">
+            <option value="">Select</option>
+        </select>
         <button type="submit">Get Flashcards</button>
     </form>
 
@@ -21,7 +23,9 @@
     <h3>Submit a new flashcard!</h3>
     <form id="new-flashcard-form">
         <label for="topic-name">Topic Name</label>
-        <select id="topic-name" name="topic-name"></select>
+        <select id="topic-name" name="topic-name">
+            <option value="">Select</option>
+        </select>
 
         <label for="new-question">Question</label>
         <input type="text" id="new-question" name="new-question">
@@ -42,7 +46,7 @@
     <h3>Create a new topic!</h3>
     <form id="new-topic-form">
         <label for="new-topic-name">Topic Name</label>
-        <input type="text" id="new-topic-name">
+        <input type="text" id="new-topic-name" name="new-topic-name">
 
         <button type="submit">Submit</button>
     </form>

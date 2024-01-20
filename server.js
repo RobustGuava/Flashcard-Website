@@ -19,9 +19,13 @@ app.get('/topics', function (request, response) {
 });
 
 // gets a list of flashcards for the topic
-// will break if duplicate topicName's
 app.get('/flashcards', function (request, response) {
     const topicName = request.query.topicName.toLowerCase();
+
+    // check if topic-name is assigned a value
+    if (!topicName) {
+        return response.status(400).json({ error: 'Please select a topic.' });
+    }
 
     for (const topic of topics) {
         if (topicName === topic.topicName) {
@@ -42,17 +46,17 @@ app.post('/flashcard/new', function (request, response) {
 
     // check if topic-name is assigned a value
     if (!topicName) {
-        return response.status(400).json({ error: 'Missing or empty "topic-name" in the request body' });
+        return response.status(400).json({ error: 'Please select a topic.' });
     }
 
     // check if new-question is assigned a value
     if (!question) {
-        return response.status(400).json({ error: 'Missing or empty "new-question" in the request body' });
+        return response.status(400).json({ error: 'Please enter a question.' });
     }
 
     // check if new-answer is assigned a value
     if (!answer) {
-        return response.status(400).json({ error: 'Missing or empty "new-answer" in the request body' });
+        return response.status(400).json({ error: 'Please enter an answer.' });
     }
 
     const newFlashcard = { question, answer };
@@ -64,7 +68,7 @@ app.post('/flashcard/new', function (request, response) {
         fs.writeFileSync(topicsFile, JSON.stringify(topics));
         response.status(200).json({ message: 'OK', data: newFlashcard });
     } else {
-        response.status(400).json({ error: "That topic doesn't exist" });
+        response.status(400).json({ error: "That topic doesn't exist." });
     }
 });
 
@@ -77,12 +81,12 @@ app.post('/topic/new', function (request, response) {
 
     // check if topic-name is assigned a value
     if (!topicName) {
-        return response.status(400).json({ error: 'Missing or empty "new-topic-name" in the request body' });
+        return response.status(400).json({ error: 'Please select a topic.' });
     }
 
     // check if the topic name already exists
     if (topics.some(topic => topic.topicName === topicName)) {
-        return response.status(400).json({ error: 'That topic name already exists' });
+        return response.status(400).json({ error: 'That topic name already exists.' });
     }
 
     const newTopic = { topicName, flashcards: [] };
