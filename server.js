@@ -13,26 +13,27 @@ app.get('/topics', function (request, response) {
     let data = [];
 
     for (const topic of topics) {
-        topicName = topic.topicName
-        topicDesc = topic.topicDesc
-        numFlashcards = topic.flashcards.length
+        title = topic.title
+        desc = topic.desc
+        flashcards_count = topic.flashcards.length
 
-        data = data.concat({ topicName, topicDesc, numFlashcards });
+        data = data.concat({ title, desc, flashcards_count });
     }
     response.status(200).json(data);
 });
 
 // gets a list of flashcards for the topic
 app.get('/flashcards', function (request, response) {
-    const topicName = request.query.topicName.toLowerCase();
+    console.log(request.query)
+    const title = request.query.title.toLowerCase();
 
     // check if topic-name is assigned a value
-    if (!topicName) {
+    if (!title) {
         return response.status(400).json({ error: 'Please select a topic.' });
     }
 
     for (const topic of topics) {
-        if (topicName === topic.topicName) {
+        if (title === topic.title) {
             return response.status(200).json(topic.flashcards);
         }
     }
@@ -44,12 +45,12 @@ app.post('/flashcard/new', function (request, response) {
     console.log('Loaded post request');
     console.log(request.body);
 
-    const topicName = request.body['topic-name'].toLowerCase();
+    const title = request.body['title'].toLowerCase();
     const question = request.body['new-question'];
     const answer = request.body['new-answer'];
 
     // check if topic-name is assigned a value
-    if (!topicName) {
+    if (!title) {
         return response.status(400).json({ error: 'Please select a topic.' });
     }
 
@@ -64,7 +65,7 @@ app.post('/flashcard/new', function (request, response) {
     }
 
     const newFlashcard = { question, answer };
-    const foundTopic = topics.find(topic => topic.topicName === topicName);
+    const foundTopic = topics.find(topic => topic.title === title);
 
     if (foundTopic) {
         foundTopic.flashcards.push(newFlashcard);
@@ -81,25 +82,26 @@ app.post('/topic/new', function (request, response) {
     console.log('Loaded post request');
     console.log(request.body);
 
-    const topicName = request.body['new-topic-name'].toLowerCase();
-    const topicDesc = request.body['new-topic-desc'];
+    const title = request.body['new-title'].toLowerCase();
+    const desc = request.body['new-desc'];
+    const id = topics.length;
 
     // check if new-topic-name is assigned a value
-    if (!topicName) {
+    if (!title) {
         return response.status(400).json({ error: 'Please select a topic.' });
     }
 
     // check if new-topic-desc is assigned a value
-    if (!topicDesc) {
+    if (!desc) {
         return response.status(400).json({ error: 'Please enter a description.' });
     }
 
     // check if the topic name already exists
-    if (topics.some(topic => topic.topicName === topicName)) {
+    if (topics.some(topic => topic.title === title)) {
         return response.status(400).json({ error: 'That topic name already exists.' });
     }
 
-    const newTopic = { topicName, topicDesc, flashcards: [] };
+    const newTopic = { id, title, desc, flashcards: [] };
 
     topics.push(newTopic);
     fs.writeFileSync(topicsFile, JSON.stringify(topics));

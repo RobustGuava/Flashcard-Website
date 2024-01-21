@@ -9,7 +9,7 @@ topicsForm.addEventListener('submit', async function (event) {
         console.log(topics);
         let html = '<ul>\n';
         for (const topic of topics) {
-            html += `<li>${topic}</li>\n`;
+            html += `<li>${topic.title}</li>\n`;
         }
         html += '</ul>\n';
         document.getElementById('topics-container').innerHTML = html;
@@ -32,11 +32,11 @@ async function populateDropdown () {
         const topics = await getTopics();
         let html = '<option value="">Select</option>\n';
         for (const topic of topics) {
-            html += `<option value="${topic}">${topic}</option>\n`;
+            html += `<option value="${topic.title}">${topic.title}</option>\n`;
         }
 
         // code found on stackoverflow https://stackoverflow.com/questions/3607291/javascript-and-getelementbyid-for-multiple-elements-with-the-same-id
-        const elms = document.querySelectorAll("[id='topic-name']");
+        const elms = document.querySelectorAll("[id='title']");
         for (const element of elms) {
             element.innerHTML = html;
         }

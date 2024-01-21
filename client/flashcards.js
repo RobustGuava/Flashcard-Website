@@ -5,15 +5,15 @@ flashcardsForm.addEventListener('submit', async function (event) {
     event.preventDefault();
 
     try {
-        const topicName = document.getElementById('topic-name').value;
-        loadFlashcards(topicName);
+        const title = document.getElementById('title').value;
+        loadFlashcards(title);
     } catch (e) {
         alert(e);
     }
 });
 
-async function loadFlashcards (topicName) {
-    const response = await fetch('http://127.0.0.1:8080/flashcards?topicName=' + topicName);
+async function loadFlashcards (title) {
+    const response = await fetch('http://127.0.0.1:8080/flashcards?title=' + title);
     if (response.ok) {
         const flashcards = await response.json();
         let html = '<ul>\n';
