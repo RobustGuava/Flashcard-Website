@@ -45,7 +45,7 @@ app.post('/flashcard/new', function (request, response) {
     console.log('Loaded post request');
     console.log(request.body);
 
-    const title = request.body.title.toLowerCase();
+    const title = request.body['title'];
     const question = request.body['new-question'];
     const answer = request.body['new-answer'];
 
@@ -65,7 +65,7 @@ app.post('/flashcard/new', function (request, response) {
     }
 
     const newFlashcard = { question, answer };
-    const foundTopic = topics.find(topic => topic.title === title);
+    const foundTopic = topics.find(topic => topic.title.toLowerCase() === title.toLowerCase());
 
     if (foundTopic) {
         foundTopic.flashcards.push(newFlashcard);
@@ -82,7 +82,7 @@ app.post('/topic/new', function (request, response) {
     console.log('Loaded post request');
     console.log(request.body);
 
-    const title = request.body['new-title'].toLowerCase();
+    const title = request.body['new-title'];
     const desc = request.body['new-desc'];
     const id = topics.length;
 
@@ -97,7 +97,7 @@ app.post('/topic/new', function (request, response) {
     }
 
     // check if the topic name already exists
-    if (topics.some(topic => topic.title === title)) {
+    if (topics.some(topic => topic.title.toLowerCase() === title.toLowerCase())) {
         return response.status(400).json({ error: 'That topic name already exists.' });
     }
 
