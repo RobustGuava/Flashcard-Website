@@ -28,21 +28,19 @@ async function loadFlashcards (title) {
     }
 }
 
-newFlashcardForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const formData = new FormData(newFlashcardForm);
-  const dataJson = JSON.stringify(Object.fromEntries(formData.entries()));
+async function newFlashcard (title) {
+    const formData = new FormData(newFlashcardForm);
+    const dataObject = Object.fromEntries(formData.entries());
+    dataObject.title = title;
+    const dataJson = JSON.stringify(dataObject);
+    // send a fetch request (POST) with the data
 
-  newFlashcardForm.reset();
-
-  // send a fetch request (POST) with the data
-
-  await fetch('http://127.0.0.1:8080/flashcard/new', {
-    method: 'POST',
-    // need to set headers to make sure the server knows to invoke the JSON parser
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: dataJson
-  });
-});
+    await fetch('http://127.0.0.1:8080/flashcard/new', {
+        method: 'POST',
+        // need to set headers to make sure the server knows to invoke the JSON parser
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: dataJson
+    });
+}

@@ -13,18 +13,18 @@ app.get('/topics', function (request, response) {
     let data = [];
 
     for (const topic of topics) {
-        title = topic.title
-        desc = topic.desc
-        flashcards_count = topic.flashcards.length
+        const title = topic.title;
+        const desc = topic.desc;
+        const flashcardsCount = topic.flashcards.length;
 
-        data = data.concat({ title, desc, flashcards_count });
+        data = data.concat({ title, desc, flashcardsCount });
     }
     response.status(200).json(data);
 });
 
 // gets a list of flashcards for the topic
 app.get('/flashcards', function (request, response) {
-    console.log(request.query)
+    console.log(request.query);
     const title = request.query.title.toLowerCase();
 
     // check if topic-name is assigned a value
@@ -45,7 +45,7 @@ app.post('/flashcard/new', function (request, response) {
     console.log('Loaded post request');
     console.log(request.body);
 
-    const title = request.body['title'].toLowerCase();
+    const title = request.body.title.toLowerCase();
     const question = request.body['new-question'];
     const answer = request.body['new-answer'];
 
@@ -86,12 +86,12 @@ app.post('/topic/new', function (request, response) {
     const desc = request.body['new-desc'];
     const id = topics.length;
 
-    // check if new-topic-name is assigned a value
+    // check if new-title is assigned a value
     if (!title) {
         return response.status(400).json({ error: 'Please select a topic.' });
     }
 
-    // check if new-topic-desc is assigned a value
+    // check if new-desc is assigned a value
     if (!desc) {
         return response.status(400).json({ error: 'Please enter a description.' });
     }

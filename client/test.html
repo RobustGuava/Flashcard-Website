@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .flashcard {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .question, .answer {
+            display: none;
+        }
+
+        button.prev, button.next {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Flashcard Website</h1>
+    </header>
+
+    <main>
+        <!-- Content will be dynamically generated here using JavaScript -->
+    </main>
+
+    <script src="flashcards.js"></script>
+    <script>
+        // Assume flashcardsData is loaded from flashcards.js
+        const flashcardsData = [
+            {
+                "id": 0,
+                "title": "topic 1",
+                "desc": "This is a sample description for topic 1",
+                "flashcards": [
+                    {
+                        "question": "This is sample question 1 for topic 1.",
+                        "answer": "This is sample answer 1 for topic 1."
+                    },
+                    {
+                        "question": "This is sample question 2 for topic 1.",
+                        "answer": "This is sample answer 2 for topic 1."
+                    },
+                    {
+                        "question": "This is sample question 3 for topic 1.",
+                        "answer": "This is sample answer 3 for topic 1."
+                    }
+                ]
+            },
+            {
+                "id": 1,
+                "title": "topic 2",
+                "desc": "This is a sample description for topic 2",
+                "flashcards": [
+                    {
+                        "question": "This is sample question 1 for topic 2.",
+                        "answer": "This is sample answer 1 for topic 2."
+                    },
+                    {
+                        "question": "This is sample question 2 for topic 2.",
+                        "answer": "This is sample answer 2 for topic 2."
+                    },
+                    {
+                        "question": "This is sample question 3 for topic 2.",
+                        "answer": "This is sample answer 3 for topic 2."
+                    }
+                ]
+            }
+        ];
+
+        const main = document.querySelector('main');
+
+        flashcardsData.forEach(topic => {
+            const topicSection = document.createElement('section');
+            topicSection.innerHTML = `<h2>${topic.title}</h2><p>${topic.desc}</p>`;
+
+            topic.flashcards.forEach((flashcard, index) => {
+                const flashcardElement = document.createElement('div');
+                flashcardElement.classList.add('flashcard');
+
+                const questionElement = document.createElement('div');
+                questionElement.classList.add('question');
+                questionElement.innerHTML = `<strong>Question:</strong> ${flashcard.question}`;
+                flashcardElement.appendChild(questionElement);
+
+                const answerElement = document.createElement('div');
+                answerElement.classList.add('answer');
+                answerElement.innerHTML = `<strong>Answer:</strong> ${flashcard.answer}`;
+                flashcardElement.appendChild(answerElement);
+
+                const showAnswerButton = document.createElement('button');
+                showAnswerButton.textContent = 'Show Answer';
+                showAnswerButton.addEventListener('click', () => {
+                    questionElement.style.display = 'none';
+                    answerElement.style.display = 'block';
+                    showAnswerButton.style.display = 'none';
+                    prevButton.style.display = 'inline-block';
+                    nextButton.style.display = 'inline-block';
+                });
+                flashcardElement.appendChild(showAnswerButton);
+
+                topicSection.appendChild(flashcardElement);
+            });
+
+            main.appendChild(topicSection);
+        });
+
+        const prevButton = document.createElement('button');
+        prevButton.classList.add('prev');
+        prevButton.textContent = 'Prev';
+        prevButton.style.display = 'none';
+        prevButton.addEventListener('click', showPrev);
+        main.appendChild(prevButton);
+
+        const nextButton = document.createElement('button');
+        nextButton.classList.add('next');
+        nextButton.textContent = 'Next';
+        nextButton.addEventListener('click', showNext);
+        main.appendChild(nextButton);
+
+        let currentQuestion = 0;
+
+        function showPrev() {
+            currentQuestion = Math.max(0, currentQuestion - 1);
+            showCurrentQuestion();
+        }
+
+        function showNext() {
+            currentQuestion = Math.min(currentQuestion + 1, flashcardsData[0].flashcards.length - 1);
+            showCurrentQuestion();
+        }
+
+        function showCurrentQuestion() {
+            const flashcards = document.querySelectorAll('.flashcard');
+            flashcards.forEach(flashcard => {
+                const questions = flashcard.querySelectorAll('.question');
+                const answers = flashcard.querySelectorAll('.answer');
+                questions.forEach((question, index) => {
+                    question.style.display = index === currentQuestion ? 'block' : 'none';
+                });
+                answers.forEach((answer, index) => {
+                    answer.style.display = 'none';
+                });
+            });
+
+            prevButton.style.display = currentQuestion > 0 ? 'inline-block' : 'none';
+            nextButton.style.display = currentQuestion < flashcardsData[0].flashcards.length - 1 ? 'inline-block' : 'none';
+        }
+    </script>
+</body>
+</html>

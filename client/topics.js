@@ -1,22 +1,20 @@
 const topicsForm = document.getElementById('topics-form');
 const newTopicForm = document.getElementById('new-topic-form');
 
-topicsForm.addEventListener('submit', async function (event) {
-    event.preventDefault();
+async function newTopic () {
+    const formData = new FormData(newTopicForm);
+    const dataJson = JSON.stringify(Object.fromEntries(formData.entries()));
+    // send a fetch request (POST) with the data
 
-    try {
-        const topics = await getTopics();
-        console.log(topics);
-        let html = '<ul>\n';
-        for (const topic of topics) {
-            html += `<li>${topic.title}</li>\n`;
-        }
-        html += '</ul>\n';
-        document.getElementById('topics-container').innerHTML = html;
-    } catch (e) {
-        alert(e);
-    }
-});
+    await fetch('http://127.0.0.1:8080/topic/new', {
+      method: 'POST',
+      // need to set headers to make sure the server knows to invoke the JSON parser
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: dataJson
+    });
+}
 
 async function getTopics () {
     const response = await fetch('http://127.0.0.1:8080/topics');
@@ -45,24 +43,25 @@ async function populateDropdown () {
     }
 }
 
-newTopicForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const formData = new FormData(newTopicForm);
-  const dataJson = JSON.stringify(Object.fromEntries(formData.entries()));
-  // send a fetch request (POST) with the data
+async function fillMainMenu () {
+    try {
+        const topics = await getTopics();
+        let html = '';
 
-  newTopicForm.reset();
+        for (const topic of topics) {
+            html += '<div class="gallery">\n';
+            html += `<h2>${topic.title}</h2>\n`;
+            html += `<p>flashcards: ${topic.flashcards_count}</p>\n`;
+            html += `<p>${topic.desc}</p>\n`;
+            html += '<button class=\'bottom\'>Add flashcard</button>\n';
+            html += '</div>\n';
+        }
 
-  await fetch('http://127.0.0.1:8080/topic/new', {
-    method: 'POST',
-    // need to set headers to make sure the server knows to invoke the JSON parser
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: dataJson
-  });
+        document.getElementById('menu-container').innerHTML = html;
+    } catch (e) {
+        alert(e);
+    }
+}
 
-  populateDropdown();
-});
-
+fillMainMenu();
 populateDropdown();
