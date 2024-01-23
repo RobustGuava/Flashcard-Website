@@ -25,23 +25,10 @@ div.gallery {
     background-color: #ffffff;
     border-radius: 6px;
     float: left;
-    width: 240px;
+    width: 260px;
     height: 300px;
     padding: 15px;
     cursor: pointer;
-}
-
-div.flashcardFace {
-    position: relative;
-    margin: 5px;
-    width: 180px;
-    border-radius: 6px;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    outline: none;
-    overflow-y: hidden;
-    box-shadow: 0 0.25rem 1rem 0 #282e3e14;
 }
 
 div.gallery:hover {

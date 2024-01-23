@@ -12,26 +12,14 @@
 </head>
 
 <body>
-    <h3>Search for flashcards!</h3>
-    <form id="flashcards-form">
-        <label for="title">Select a Topic:</label>
-        <select id="title">
-            <option value="">Select</option>
-        </select>
-        <button type="submit">Get Flashcards</button>
-    </form>
-
-    <div id="flashcards-container"></div>
-
-    <h2>Topics Set</h2>
-    <p>Click on a set to view the flashcards.</p>
-
+    <h1>Topics set</h1>
     <!-- code from W3Schools https://www.w3schools.com/css/css_image_gallery.asp -->
     <div class="gallery" id="gallery">
         <h2>Create a new Topic!</h2>
         <p>Click this card to create a new topic!</p>
         <button type="button" class="btn btn-primary bottom" data-toggle="modal" data-target="#topicModal">Add topic</button>
     </div>
+    <!-- 
 
     <div class="gallery">
         <h2>Maths</h2>
@@ -41,14 +29,16 @@
         <button type="button" class="btn btn-primary bottom" data-toggle="modal" data-target="#flashcardModal">Study set</button>
     </div>
 
+    -->
+
     <div id="menu-container"></div>
 
-    <div class="modal fade" id="topicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <!-- code from bootstrap https://getbootstrap.com/docs/4.0/components/modal/ -->
+    <div class="modal fade" id="topicModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Topic</h5>
+                    <h5 class="modal-title">New Topic</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -68,18 +58,18 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="newTopic();">Add topic</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="newTopic();">Add
+                        topic</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="newFlashcardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="newFlashcardModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Maths</h5>
+                    <h5 class="modal-title">Maths</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -105,23 +95,22 @@
         </div>
     </div>
 
-    <div class="modal fade" id="flashcardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="flashcardModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Maths</h5>
+                    <h5 class="modal-title" id="modal-title">Maths</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <p>sample question:</p>
+                <div class="modal-body" id="modal-body">
+                    <p>Question loading...</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="flashcardIndex(-1);">Prev</button>
+                    <button type="button" class="btn btn-primary" onclick="prevFlashcard();">Prev</button>
                     <button type="button" class="btn btn-primary" onclick="flipFlashcard();">Show Answer</button>
-                    <button type="button" class="btn btn-primary" onclick="flashcardIndex(1);">Next</button>
+                    <button type="button" class="btn btn-primary" onclick="nextFlashcard();">Next</button>
                 </div>
             </div>
         </div>

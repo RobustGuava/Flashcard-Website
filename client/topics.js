@@ -51,9 +51,10 @@ async function fillMainMenu () {
         for (const topic of topics) {
             html += '<div class="gallery">\n';
             html += `<h2>${topic.title}</h2>\n`;
-            html += `<p>flashcards: ${topic.flashcards_count}</p>\n`;
+            html += `<p>flashcards: ${topic.flashcardsCount}</p>\n`;
             html += `<p>${topic.desc}</p>\n`;
-            html += '<button class=\'bottom\'>Add flashcard</button>\n';
+            html += '<button type="button" class="btn btn-primary bottom" data-toggle="modal" data-target="#newFlashcardModal">Add flashcard</button>'
+            html += `<button type="button" class="btn btn-primary bottom" style="right: 10px" data-toggle="modal" data-target="#flashcardModal" onclick="loadFlashcards('${topic.title}')">Study set</button>`
             html += '</div>\n';
         }
 
