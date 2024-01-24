@@ -22,11 +22,33 @@ app.get('/topics', function (request, response) {
     response.status(200).json(data);
 });
 
+// gets data for a single topic
+app.get('/topic', function (request, response) {
+    const title = request.query.title;
+
+    // check if title is assigned a value
+    if (!title) {
+        return response.status(400).json({ error: 'Please select a topic.' });
+    }
+
+    for (const topic of topics) {
+        if (title.toLowerCase() === topic.title.toLowerCase()) {
+            const title = topic.title;
+            const desc = topic.desc;
+            const flashcardsCount = topic.flashcards.length;
+
+            return response.status(200).json({ title, desc, flashcardsCount });
+        }
+    }
+
+    return response.status(400).json({ error: 'Topic doesnt exist.' });
+});
+
 // gets a list of flashcards for the topic
 app.get('/flashcards', function (request, response) {
     const title = request.query.title;
 
-    // check if topic-name is assigned a value
+    // check if title is assigned a value
     if (!title) {
         return response.status(400).json({ error: 'Please select a topic.' });
     }
@@ -36,9 +58,39 @@ app.get('/flashcards', function (request, response) {
             return response.status(200).json(topic.flashcards);
         }
     }
-
     return response.status(400).json({ error: 'Topic doesnt exist.' });
 });
+
+// gets data for a single flashcard
+app.get('/flashcard', function (request, response) {
+    const title = request.query.title;
+    const index = request.query.index;
+
+    console.log(title)
+    console.log(index)
+
+    // check if title is assigned a value
+    if (!title) {
+        return response.status(400).json({ error: 'Please select a topic.' });
+    }
+
+    // check if index is assigned a value
+    if (!index) {
+        return response.status(400).json({ error: 'Please enter an index.' });
+    }
+
+    for (const topic of topics) {
+        if (title.toLowerCase() === topic.title.toLowerCase()) {
+            // check if index exists
+            if (index > topic.flashcards.length - 1) {
+                return response.status(400).json({ error: 'Index is out of range.' });
+            }
+            return response.status(200).json(topic.flashcards[index]);
+        }
+    }
+    return response.status(400).json({ error: 'Topic doesnt exist.' });
+});
+
 
 // adds a new flashcard for the topic
 app.post('/flashcard/new', function (request, response) {
@@ -75,6 +127,7 @@ app.post('/flashcard/new', function (request, response) {
     }
 });
 
+// adds a new topic
 app.post('/topic/new', function (request, response) {
     // get data out of request
     const title = request.body['new-title'];
