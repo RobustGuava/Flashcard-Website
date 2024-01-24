@@ -64,10 +64,7 @@ app.get('/flashcards', function (request, response) {
 // gets data for a single flashcard
 app.get('/flashcard', function (request, response) {
     const title = request.query.title;
-    const index = request.query.index;
-
-    console.log(title)
-    console.log(index)
+    const index = parseInt(request.query.index);
 
     // check if title is assigned a value
     if (!title) {
@@ -77,6 +74,11 @@ app.get('/flashcard', function (request, response) {
     // check if index is assigned a value
     if (!index) {
         return response.status(400).json({ error: 'Please enter an index.' });
+    }
+
+    // check if index is assigned a number
+    if (isNaN(index) || !Number.isInteger(index)) {
+        return response.status(400).json({ error: 'Please enter index as an integer.' });
     }
 
     for (const topic of topics) {
@@ -90,7 +92,6 @@ app.get('/flashcard', function (request, response) {
     }
     return response.status(400).json({ error: 'Topic doesnt exist.' });
 });
-
 
 // adds a new flashcard for the topic
 app.post('/flashcard/new', function (request, response) {

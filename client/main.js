@@ -7,7 +7,6 @@ async function loadFlashcards(req) {
     try {
         const response = await fetch('http://127.0.0.1:8080/flashcards?title=' + req);
 
-        console.log(response.status)
         if (response.ok) {
             flashcards = await response.json();
 
