@@ -36,15 +36,14 @@ app.get('/flashcards', function (request, response) {
             return response.status(200).json(topic.flashcards);
         }
     }
+
+    return response.status(400).json({ error: 'Topic doesnt exist.' });
 });
 
 // adds a new flashcard for the topic
 app.post('/flashcard/new', function (request, response) {
     // get data out of request
-    console.log('Loaded post request');
-    console.log(request.body);
-
-    const title = request.body['title'];
+    const title = request.body.title;
     const question = request.body['new-question'];
     const answer = request.body['new-answer'];
 
@@ -78,12 +77,9 @@ app.post('/flashcard/new', function (request, response) {
 
 app.post('/topic/new', function (request, response) {
     // get data out of request
-    console.log('Loaded post request');
-    console.log(request.body);
-
     const title = request.body['new-title'];
     const desc = request.body['new-desc'];
-    const id = topics.length;
+    const flashcards = [];
 
     // check if new-title is assigned a value
     if (!title) {
@@ -100,7 +96,7 @@ app.post('/topic/new', function (request, response) {
         return response.status(400).json({ error: 'That topic name already exists.' });
     }
 
-    const newTopic = { id, title, desc, flashcards: [] };
+    const newTopic = { title, desc, flashcards };
 
     topics.push(newTopic);
     fs.writeFileSync(topicsFile, JSON.stringify(topics));
