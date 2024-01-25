@@ -16,14 +16,14 @@ describe('Tests for topic entity', () => {
             .expect('Content-type', /json/);
     });
 
-    test('GET /topics to include Topic 1', () => {
+    test('GET /topics to include Maths', () => {
         return request(app)
             .get('/topics')
-            .expect(/Topic 1/);
+            .expect(/Maths/);
     });
 
     test('GET /topic succeeds', () => {
-        const query = { title: 'Topic 1' }
+        const query = { title: 'Maths' }
         return request(app)
             .get('/topic')
             .query(query)
@@ -31,7 +31,7 @@ describe('Tests for topic entity', () => {
     });
 
     test('GET /topic returns JSON', () => {
-        const query = { title: 'Topic 1' }
+        const query = { title: 'Maths' }
         return request(app)
             .get('/topic')
             .query(query)
@@ -95,7 +95,7 @@ describe('Tests for topic entity', () => {
 
 describe('Tests for flashcard entity', () => {
     test('GET /flashcards succeeds', () => {
-        const query = { title: 'Topic 1' }
+        const query = { title: 'Maths' }
         return request(app)
             .get('/flashcards')
             .query(query)
@@ -103,7 +103,7 @@ describe('Tests for flashcard entity', () => {
     });
 
     test('GET /flashcards returns JSON', () => {
-        const query = { title: 'Topic 1' }
+        const query = { title: 'Maths' }
         return request(app)
             .get('/flashcards')
             .query(query)
@@ -135,7 +135,7 @@ describe('Tests for flashcard entity', () => {
     });
 
     test('GET /flashcard succeeds', () => {
-        const query = { title: 'Topic 1', index: 1 }
+        const query = { title: 'Maths', index: 1 }
         return request(app)
             .get('/flashcard')
             .query(query)
@@ -143,7 +143,7 @@ describe('Tests for flashcard entity', () => {
     });
 
     test('GET /flashcard returns JSON', () => {
-        const query = { title: 'Topic 1', index: 1 }
+        const query = { title: 'Maths', index: 1 }
         return request(app)
             .get('/flashcard')
             .query(query)
@@ -159,7 +159,7 @@ describe('Tests for flashcard entity', () => {
     });
 
     test('GET /flashcard fails for empty index query', () => {
-        const query = { title: 'Topic 1', index: '' }
+        const query = { title: 'Maths', index: '' }
         return request(app)
             .get('/flashcard')
             .query(query)
@@ -167,7 +167,7 @@ describe('Tests for flashcard entity', () => {
     });
 
     test('GET /flashcard fails for invalid index query', () => {
-        const query = { title: 'Topic 1', index: 'two' }
+        const query = { title: 'Maths', index: 'two' }
         return request(app)
             .get('/flashcard')
             .query(query)
@@ -183,7 +183,7 @@ describe('Tests for flashcard entity', () => {
     });
 
     test('GET /flashcard fails for missing index query', () => {
-        const query = { title: 'Topic 1' }
+        const query = { title: 'Maths' }
         return request(app)
             .get('/flashcard')
             .query(query)
@@ -191,7 +191,7 @@ describe('Tests for flashcard entity', () => {
     });
 
     test('GET /flashcard fails for index out of range', () => {
-        const query = { title: 'Topic 1', index: '10' }
+        const query = { title: 'Maths', index: '10' }
         return request(app)
             .get('/flashcard')
             .query(query)
