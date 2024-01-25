@@ -22,12 +22,11 @@ async function loadFlashcards (req) {
             displayFlashcard();
             displayTitle();
         } else {
-            throw new Error('Failed to load flashcards');
+            const responseData = await response.json()
+            addAlert(responseData.error);
         }
     } catch (error) {
-        console.error(error);
-
-        alertElement.classList.toggle('show', true);
+        addAlert('The server is down, try again later.');
     }
 }
 
