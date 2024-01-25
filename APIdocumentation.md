@@ -12,39 +12,39 @@ Endpoint URL
 
 Example response:
 
-[
+    [
 
-    {
+        {
 
-        title "Maths",
+            title "Maths",
 
-        desc: "This is a flashcard set for Maths",
+            desc: "This is a flashcard set for Maths",
 
-        numFlashcards: 15
+            numFlashcards: 15
 
-    },
+        },
 
-    {
+        {
 
-        title: "Computer Science",
+            title: "Computer Science",
 
-        desc: "This is a flashcard set for Computer Science",
+            desc: "This is a flashcard set for Computer Science",
 
-        numFlashcards: 24
+            numFlashcards: 24
 
-    },
+        },
 
-    {
+        {
 
-        title: "Physics",
+            title: "Physics",
 
-        desc: "This is a flashcard set for Physics",
+            desc: "This is a flashcard set for Physics",
 
-        numFlashcards: 72
+            numFlashcards: 72
 
-    }
+        }
 
-]
+    ]
 
 - ### GET /topic
 
@@ -62,15 +62,15 @@ Query
 
 Example response:
 
-{
+    {
 
-    title "Maths",
+        title "Maths",
 
-    desc: "This is a flashcard set for Maths",
+        desc: "This is a flashcard set for Maths",
 
-    numFlashcards: 15
+        numFlashcards: 15
 
-}
+    }
 
 - ### POST /topic/new
 
@@ -105,24 +105,24 @@ Query
 
 Example response:
 
-[
+    [
 
-    {
+        {
 
-        "question": "What is 1 + 1?",
+            "question": "What is 1 + 1?",
 
-        "answer": "1 + 1 = 2"
+            "answer": "1 + 1 = 2"
 
-    },
-    {
+        },
+        {
 
-        "question": "What is 1 x 1?",
+            "question": "What is 1 x 1?",
 
-        "answer": "1 x 1 = 1"
+            "answer": "1 x 1 = 1"
 
-    }
+        }
 
-]
+    ]
 
 - ### GET /flashcard
 
@@ -141,13 +141,13 @@ Query
 
 Example response
 
-{
+    {
 
-    "question": "What is 1 + 1?",
+        "question": "What is 1 + 1?",
 
-    "answer": "1 + 1 = 2"
+        "answer": "1 + 1 = 2"
 
-}
+    }
 
 -
 ### POST /flashcard/new
