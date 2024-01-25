@@ -1,6 +1,6 @@
 const newFlashcardForm = document.getElementById('new-flashcard-form');
 
-async function newFlashcard(title) {
+async function newFlashcard (title) {
     try {
         const formData = new FormData(newFlashcardForm);
         const dataObject = Object.fromEntries(formData.entries());
@@ -18,9 +18,12 @@ async function newFlashcard(title) {
             body: dataJson
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            addAlert(errorData.error);
+        const responseData = await response.json();
+        if (response.ok) {
+            fillMainMenu();
+            addAlert('Flashcard added successfully!', 'success');
+        } else {
+            addAlert(responseData.error);
         }
     } catch {
         addAlert('The server is down, try again later.');

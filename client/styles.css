@@ -14,6 +14,7 @@ div.gallery {
     background-color: #ffffff;
     border-radius: 6px;
     float: left;
+    overflow: auto;
     width: 260px;
     height: 300px;
     padding: 15px;
@@ -28,4 +29,3 @@ button.bottom {
     position: absolute;
     bottom: 10px;
 }
-

@@ -1,6 +1,6 @@
 const flashcardModalTitle = document.getElementById('flashcard-modal-title');
 const alertElement = document.getElementById('alert');
-const modalTitle = document.getElementById('modal-title')
+const modalTitle = document.getElementById('modal-title');
 const modalFooter = document.getElementById('modal-footer');
 const modalBody = document.getElementById('modal-body');
 
@@ -9,7 +9,7 @@ let index = 0;
 let showQuestion = true;
 let title = '';
 
-async function loadFlashcards(req) {
+async function loadFlashcards (req) {
     try {
         const response = await fetch('http://127.0.0.1:8080/flashcards?title=' + req);
 
@@ -31,23 +31,23 @@ async function loadFlashcards(req) {
     }
 }
 
-function loadAddFlashcard(title) {
-    html = '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
+function loadAddFlashcard (title) {
+    let html = '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
     html += `<button type="button" class="btn btn-primary" onclick="newFlashcard('${title}');">Add
-        flashcard</button>`
+        flashcard</button>`;
 
-    modalTitle.innerText = title
+    modalTitle.innerText = title;
     modalFooter.innerHTML = html;
 }
 
-function flipFlashcard() {
+function flipFlashcard () {
     showQuestion = !showQuestion;
     displayFlashcard();
 }
 
-function displayFlashcard() {    
+function displayFlashcard () {
     if (flashcards.length === 0) {
-        modalBody.innerHTML = '<p>This topic doesnt have any flashcards.</p>'
+        modalBody.innerHTML = '<p>This topic doesnt have any flashcards.</p>';
     } else if (showQuestion) {
         modalBody.innerHTML = `<p>Question: ${index + 1}/${flashcards.length}</p><p>${flashcards[index].question}</p>`;
     } else {
@@ -55,18 +55,18 @@ function displayFlashcard() {
     }
 }
 
-function displayTitle() {
+function displayTitle () {
     flashcardModalTitle.innerText = `${title}`;
 }
 
-function nextFlashcard() {
+function nextFlashcard () {
     index = (index + 1) % flashcards.length;
     showQuestion = true;
     displayFlashcard();
     displayTitle();
 }
 
-function prevFlashcard() {
+function prevFlashcard () {
     index = (index - 1 + flashcards.length) % flashcards.length;
     showQuestion = true;
     displayFlashcard();

@@ -1,8 +1,8 @@
 const newTopicForm = document.getElementById('new-topic-form');
-const searchTopicForm = document.getElementById("search-topic-form")
-const myAlert = document.getElementById("alert")
+const searchTopicForm = document.getElementById('search-topic-form');
+const myAlert = document.getElementById('alert');
 
-async function newTopic() {
+async function newTopic () {
     try {
         const formData = new FormData(newTopicForm);
         const dataJson = JSON.stringify(Object.fromEntries(formData.entries()));
@@ -19,19 +19,19 @@ async function newTopic() {
             body: dataJson
         });
 
+        const responseData = await response.json();
         if (response.ok) {
             fillMainMenu();
+            addAlert('Topic added successfully!', 'success');
         } else {
-            const errorData = await response.json();
-            addAlert(errorData.error);
+            addAlert(responseData.error);
         }
     } catch {
         addAlert('The server is down, try again later.');
     }
-    
 }
 
-async function getTopics() {
+async function getTopics () {
     try {
         const response = await fetch('http://127.0.0.1:8080/topics');
         if (response.ok) {
@@ -43,10 +43,9 @@ async function getTopics() {
     } catch {
         addAlert('The server is down, try again later.');
     }
-    
 }
 
-async function getTopic(title) {
+async function getTopic (title) {
     try {
         const response = await fetch('http://127.0.0.1:8080/topic?title=' + title);
         if (response.ok) {
@@ -63,7 +62,7 @@ async function getTopic(title) {
 searchTopicForm.addEventListener('submit', async function (event) {
     event.preventDefault();
 
-    let title = document.getElementById("search-title").value;
+    const title = document.getElementById('search-title').value;
     const topic = await getTopic(title);
     if (!topic) {
         fillMainMenu();
@@ -74,8 +73,8 @@ searchTopicForm.addEventListener('submit', async function (event) {
     searchTopicForm.reset();
 });
 
-function addTopicToMenu(topic) {
-    html = ''
+function addTopicToMenu (topic) {
+    let html = '';
     html += '<div class="gallery">\n';
     html += `<h2>${topic.title}</h2>\n`;
     html += `<p>flashcards: ${topic.flashcardsCount}</p>\n`;
@@ -84,10 +83,10 @@ function addTopicToMenu(topic) {
     html += `<button type="button" class="btn btn-primary bottom" style="right: 10px" data-toggle="modal" data-target="#flashcardModal" onclick="loadFlashcards('${topic.title}')">Study set</button>`;
     html += '</div>\n';
 
-    document.getElementById('menu-container').innerHTML += html
+    document.getElementById('menu-container').innerHTML += html;
 }
 
-async function fillMainMenu() {
+async function fillMainMenu () {
     const topics = await getTopics();
     document.getElementById('menu-container').innerHTML = '';
     for (const topic of topics) {
@@ -97,7 +96,7 @@ async function fillMainMenu() {
 
 // code from chatGPT
 // html for alert from bootstrap https://getbootstrap.com/docs/4.0/components/alerts/
-function addAlert(message, type = 'danger') {
+function addAlert (message, type = 'danger') {
     // Create a new alert element
     const alertElement = document.createElement('div');
     alertElement.className = `alert alert-${type} alert-dismissible`;
@@ -107,7 +106,7 @@ function addAlert(message, type = 'danger') {
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-        <strong>Error: </strong>${message}
+        <strong>Message: </strong>${message}
     `;
 
     // Get the alert container
