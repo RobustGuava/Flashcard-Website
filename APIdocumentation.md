@@ -2,8 +2,7 @@
 
 ## Topics
 
--
-### GET /topics
+- ### GET /topics
 
 It allows you to get a list of the data of all the topics.
 
@@ -15,40 +14,39 @@ Example response:
 
 [
 
-{
+    {
 
-title "Maths",
+        title "Maths",
 
-desc: "This is a flashcard set for Maths",
+        desc: "This is a flashcard set for Maths",
 
-numFlashcards: 15
+        numFlashcards: 15
 
-},
+    },
 
-{
+    {
 
-title: "Computer Science",
+        title: "Computer Science",
 
-desc: "This is a flashcard set for Computer Science",
+        desc: "This is a flashcard set for Computer Science",
 
-numFlashcards: 24
+        numFlashcards: 24
 
-},
+    },
 
-{
+    {
 
-title: "Physics",
+        title: "Physics",
 
-desc: "This is a flashcard set for Physics",
+        desc: "This is a flashcard set for Physics",
 
-numFlashcards: 72
+        numFlashcards: 72
 
-}
+    }
 
 ]
 
--
-### GET /topic
+- ### GET /topic
 
 It allows you to get the data of a topic.
 
@@ -66,16 +64,15 @@ Example response:
 
 {
 
-title "Maths",
+    title "Maths",
 
-desc: "This is a flashcard set for Maths",
+    desc: "This is a flashcard set for Maths",
 
-numFlashcards: 15
+    numFlashcards: 15
 
 }
 
--
-### POST /topic/new
+- ### POST /topic/new
 
 Allows you to add a new topic.
 
@@ -92,8 +89,7 @@ JSON body parameters
 
 ## Flashcards
 
--
-### GET /flashcards
+- ### GET /flashcards
 
 Allows you to get a list of all the flashcards for a topic.
 
@@ -111,26 +107,24 @@ Example response:
 
 [
 
-{
+    {
 
-"question": "What is 1 + 1?",
+        "question": "What is 1 + 1?",
 
-"answer": "1 + 1 = 2"
+        "answer": "1 + 1 = 2"
 
-},
+    },
+    {
 
-{
+        "question": "What is 1 x 1?",
 
-"question": "What is 1 x 1?",
+        "answer": "1 x 1 = 1"
 
-"answer": "1 x 1 = 1"
-
-}
+    }
 
 ]
 
--
-### GET /flashcard
+- ### GET /flashcard
 
 Allows you to get a single flashcard for a topic.
 
@@ -149,9 +143,9 @@ Example response
 
 {
 
-"question": "What is 1 + 1?",
+    "question": "What is 1 + 1?",
 
-"answer": "1 + 1 = 2"
+    "answer": "1 + 1 = 2"
 
 }
 
