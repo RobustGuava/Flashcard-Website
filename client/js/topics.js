@@ -1,44 +1,78 @@
 const newTopicForm = document.getElementById('new-topic-form');
 const searchTopicForm = document.getElementById("search-topic-form")
-
+const myAlert = document.getElementById("alert")
 
 async function newTopic() {
-    const formData = new FormData(newTopicForm);
-    const dataJson = JSON.stringify(Object.fromEntries(formData.entries()));
+    try {
+        const formData = new FormData(newTopicForm);
+        const dataJson = JSON.stringify(Object.fromEntries(formData.entries()));
 
-    newTopicForm.reset();
-    // send a fetch request (POST) with the data
+        newTopicForm.reset();
+        // send a fetch request (POST) with the data
 
-    await fetch('http://127.0.0.1:8080/topic/new', {
-        method: 'POST',
-        // need to set headers to make sure the server knows to invoke the JSON parser
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: dataJson
-    });
+        const response = await fetch('http://127.0.0.1:8080/topic/new', {
+            method: 'POST',
+            // need to set headers to make sure the server knows to invoke the JSON parser
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: dataJson
+        });
 
-    fillMainMenu();
+        if (response.ok) {
+            fillMainMenu();
+        } else {
+            const errorData = await response.json();
+            addAlert(errorData.error);
+        }
+    } catch {
+        addAlert('The server is down, try again later.');
+    }
+    
 }
 
 async function getTopics() {
-    const response = await fetch('http://127.0.0.1:8080/topics');
-    if (response.ok) {
-        return response.json();
-    } else {
-        alert('Sorry you cannot type you have a 404');
+    try {
+        const response = await fetch('http://127.0.0.1:8080/topics');
+        if (response.ok) {
+            return response.json();
+        } else {
+            const errorData = await response.json();
+            addAlert(errorData.error);
+        }
+    } catch {
+        addAlert('The server is down, try again later.');
     }
+    
 }
 
 async function getTopic(title) {
-    const response = await fetch('http://127.0.0.1:8080/topic?title=' + title);
-    if (response.ok) {
-        return response.json();
-    } else {
-        console.log(response.status)
-        alert('Sorry you cannot type you have a 404');
+    try {
+        const response = await fetch('http://127.0.0.1:8080/topic?title=' + title);
+        if (response.ok) {
+            return response.json();
+        } else {
+            const errorData = await response.json();
+            addAlert(errorData.error);
+        }
+    } catch {
+        addAlert('The server is down, try again later.');
     }
 }
+
+searchTopicForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    let title = document.getElementById("search-title").value;
+    const topic = await getTopic(title);
+    if (!topic) {
+        fillMainMenu();
+    } else {
+        document.getElementById('menu-container').innerHTML = '';
+        addTopicToMenu(topic);
+    }
+    searchTopicForm.reset();
+});
 
 function addTopicToMenu(topic) {
     html = ''
@@ -61,18 +95,31 @@ async function fillMainMenu() {
     }
 }
 
-searchTopicForm.addEventListener('submit', async function (event) {
-    event.preventDefault();
+// code from chatGPT
+// html for alert from bootstrap https://getbootstrap.com/docs/4.0/components/alerts/
+function addAlert(message, type = 'danger') {
+    // Create a new alert element
+    const alertElement = document.createElement('div');
+    alertElement.className = `alert alert-${type} alert-dismissible`;
 
-    let title = document.getElementById("search-title").value;
-    const topic = await getTopic(title);
-    if (!topic) {
-        fillMainMenu();
-    } else {
-        document.getElementById('menu-container').innerHTML = '';
-        addTopicToMenu(topic);
-    }
-    searchTopicForm.reset();
-});
+    // Add the close button
+    alertElement.innerHTML = `
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Error: </strong>${message}
+    `;
+
+    // Get the alert container
+    const alertContainer = document.getElementById('alert-container');
+
+    // Append the new alert to the container
+    alertContainer.appendChild(alertElement);
+
+    // Set a timeout to remove the alert after 5 seconds
+    setTimeout(() => {
+        alertElement.remove();
+    }, 5000);
+}
 
 fillMainMenu();

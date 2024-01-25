@@ -21,26 +21,18 @@
         </form>
     </nav>
 
-    <!-- code from W3Schools https://www.w3schools.com/css/css_image_gallery.asp -->
-    <div class="gallery" id="gallery">
-        <h2>Create a new Topic!</h2>
-        <p>Click "Add topic" to create a new topic!</p>
-        <button type="button" class="btn btn-primary bottom" data-toggle="modal" data-target="#topicModal">Add
-            topic</button>
+    <div id="alert-container"></div>
+
+    <div class="gallery-container">
+        <!-- code from W3Schools https://www.w3schools.com/css/css_image_gallery.asp -->
+        <div class="gallery" id="gallery">
+            <h2>Create a new Topic!</h2>
+            <p>Click "Add topic" to create a new topic!</p>
+            <button type="button" class="btn btn-primary bottom" data-toggle="modal" data-target="#topicModal">Add
+                topic</button>
+        </div>
+        <div id="menu-container"></div>
     </div>
-    <!-- 
-
-    <div class="gallery">
-        <h2>Maths</h2>
-        <p>flashcards: 0</p>
-        <p>This is a flashcards set for maths</p>
-        <button type="button" class="btn btn-primary bottom" data-toggle="modal" data-target="#newFlashcardModal">Add flashcard</button>
-        <button type="button" class="btn btn-primary bottom" data-toggle="modal" data-target="#flashcardModal">Study set</button>
-    </div>
-
-    -->
-
-    <div id="menu-container"></div>
 
     <!-- code from bootstrap https://getbootstrap.com/docs/4.0/components/modal/ -->
     <div class="modal fade" id="topicModal" tabindex="-1" role="dialog">

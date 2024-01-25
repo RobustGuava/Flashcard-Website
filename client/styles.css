@@ -3,23 +3,12 @@ body {
     background-color: #f4f4f4;
 }
 
-button {
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    outline: none;
-}
-
-button:hover {
-    background-color: #2980b9;
+div.gallery-container {
+    padding: 20px;
 }
 
 div.gallery {
-    margin: 5px;
+    margin: 10px;
     border: 1px solid #ccc;
     position: relative;
     background-color: #ffffff;

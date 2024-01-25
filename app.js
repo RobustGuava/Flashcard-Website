@@ -28,7 +28,7 @@ app.get('/topic', function (request, response) {
 
     // check if title is assigned a value
     if (!title) {
-        return response.status(400).json({ error: 'Please select a topic.' });
+        return response.status(400).json({ error: 'Please enter a topic name.' });
     }
 
     for (const topic of topics) {
@@ -50,7 +50,7 @@ app.get('/flashcards', function (request, response) {
 
     // check if title is assigned a value
     if (!title) {
-        return response.status(400).json({ error: 'Please select a topic.' });
+        return response.status(400).json({ error: 'Please enter a topic name.' });
     }
 
     for (const topic of topics) {
@@ -68,7 +68,7 @@ app.get('/flashcard', function (request, response) {
 
     // check if title is assigned a value
     if (!title) {
-        return response.status(400).json({ error: 'Please select a topic.' });
+        return response.status(400).json({ error: 'Please enter a topic name.' });
     }
 
     // check if index is assigned a value
@@ -137,7 +137,7 @@ app.post('/topic/new', function (request, response) {
 
     // check if new-title is assigned a value
     if (!title) {
-        return response.status(400).json({ error: 'Please select a topic.' });
+        return response.status(400).json({ error: 'Please enter a topic name.' });
     }
 
     // check if new-desc is assigned a value
