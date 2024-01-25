@@ -4,6 +4,7 @@ async function newFlashcard (title) {
     const formData = new FormData(newFlashcardForm);
     const dataObject = Object.fromEntries(formData.entries());
     dataObject.title = title;
+    newFlashcardForm.reset();
     const dataJson = JSON.stringify(dataObject);
     // send a fetch request (POST) with the data
 
@@ -15,4 +16,5 @@ async function newFlashcard (title) {
         },
         body: dataJson
     });
+    
 }

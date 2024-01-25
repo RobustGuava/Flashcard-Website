@@ -1,3 +1,9 @@
+const flashcardModalTitle = document.getElementById('flashcard-modal-title');
+const alertElement = document.getElementById('alert');
+const modalTitle = document.getElementById('modal-title')
+const modalFooter = document.getElementById('modal-footer');
+const modalBody = document.getElementById('modal-body');
+
 let flashcards = [];
 let index = 0;
 let showQuestion = true;
@@ -21,16 +27,11 @@ async function loadFlashcards(req) {
     } catch (error) {
         console.error(error);
 
-        const alertElement = document.getElementById('alert');
         alertElement.classList.toggle('show', true);
     }
 }
 
 function loadAddFlashcard(title) {
-console.log(title)
-
-    const modalTitle = document.getElementById('modal-title')
-    const modalFooter = document.getElementById('modal-footer');
     html = '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
     html += `<button type="button" class="btn btn-primary" onclick="newFlashcard('${title}');">Add
         flashcard</button>`
@@ -44,9 +45,7 @@ function flipFlashcard() {
     displayFlashcard();
 }
 
-function displayFlashcard() {
-    const modalBody = document.getElementById('modal-body');
-    
+function displayFlashcard() {    
     if (flashcards.length === 0) {
         modalBody.innerHTML = '<p>This topic doesnt have any flashcards.</p>'
     } else if (showQuestion) {
@@ -57,8 +56,7 @@ function displayFlashcard() {
 }
 
 function displayTitle() {
-    const modalTitle = document.getElementById('flashcard-modal-title');
-    modalTitle.innerText = `${title}`;
+    flashcardModalTitle.innerText = `${title}`;
 }
 
 function nextFlashcard() {
