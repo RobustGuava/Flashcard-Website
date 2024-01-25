@@ -135,7 +135,7 @@ describe('Tests for flashcard entity', () => {
     });
 
     test('GET /flashcard succeeds', () => {
-        const query = { title: 'Topic 1', index: 0 }
+        const query = { title: 'Topic 1', index: 1 }
         return request(app)
             .get('/flashcard')
             .query(query)
@@ -143,7 +143,7 @@ describe('Tests for flashcard entity', () => {
     });
 
     test('GET /flashcard returns JSON', () => {
-        const query = { title: 'Topic 1', index: 0 }
+        const query = { title: 'Topic 1', index: 1 }
         return request(app)
             .get('/flashcard')
             .query(query)

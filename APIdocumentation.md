@@ -54,7 +54,7 @@ Endpoint URL
 
 [http://127.0.0.1:8080/topic](http://127.0.0.1:8080/topic)
 
-Query
+Querys
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -97,7 +97,7 @@ Endpoint URL:
 
 [http://127.0.0.1/flashcards](http://127.0.0.1/flashcards)
 
-Query
+Querys
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -132,7 +132,7 @@ Endpoint URL:
 
 [http://127.0.0.1/flashcard](http://127.0.0.1/flashcard)
 
-Query
+Querys
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -149,8 +149,7 @@ Example response
 
     }
 
--
-### POST /flashcard/new
+- ### POST /flashcard/new
 
 Allows you to add a new flashcard.
 

@@ -72,7 +72,7 @@ app.get('/flashcard', function (request, response) {
     }
 
     // check if index is assigned a value
-    if (!index) {
+    if (index === undefined || index === null) {
         return response.status(400).json({ error: 'Please enter an index.' });
     }
 

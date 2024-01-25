@@ -14,6 +14,8 @@ async function newTopic() {
         },
         body: dataJson
     });
+
+    fillMainMenu();
 }
 
 async function getTopics() {
@@ -59,7 +61,7 @@ function addTopicToMenu(topic) {
     html += `<h2>${topic.title}</h2>\n`;
     html += `<p>flashcards: ${topic.flashcardsCount}</p>\n`;
     html += `<p>${topic.desc}</p>\n`;
-    html += '<button type="button" class="btn btn-primary bottom" data-toggle="modal" data-target="#newFlashcardModal">Add flashcard</button>';
+    html += `<button type="button" class="btn btn-primary bottom" data-toggle="modal" data-target="#newFlashcardModal" onclick="loadAddFlashcard('${topic.title}')">Add flashcard</button>`;
     html += `<button type="button" class="btn btn-primary bottom" style="right: 10px" data-toggle="modal" data-target="#flashcardModal" onclick="loadFlashcards('${topic.title}')">Study set</button>`;
     html += '</div>\n';
 
@@ -78,14 +80,15 @@ let searchTopicForm = document.getElementById("search-topic-form")
 
 searchTopicForm.addEventListener('submit', async function (event) {
     event.preventDefault();
-    try {
-        let title = document.getElementById("search-title").value;
+
+    let title = document.getElementById("search-title").value;
+
+    if (!title) {
+        fillMainMenu();
+    } else {
         const topic = await getTopic(title);
         document.getElementById('menu-container').innerHTML = '';
         addTopicToMenu(topic);
-    } catch (e) {
-        console.log(error);
-        fillMainMenu();
     }
 });
 
